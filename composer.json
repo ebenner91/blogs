@@ -1,0 +1,15 @@
+{
+	"name": "ebenner/blogs",
+	"authors": [
+		{
+			"name": "Elizabeth Benner",
+			"email": "ebenner@mail.greenriver.edu"
+		}
+	],
+	"require": {
+		"bcosca/fatfree-core": "dev-master"
+	},
+	"autoload":{
+		"classmap": ["model/", "classes/"]
+	}
+}
