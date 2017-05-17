@@ -15,16 +15,6 @@
  * @version 1.0
  */
 
-/*
-  CREATE TABLE bloggers (
-  id INT(3) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  fname VARCHAR(50),
-  lname VARCHAR(50),
-  imagepath VARCHAR(255),
-  blogcount INT(3)
-  );
-*/
-
 //Connect to the database (re-using code written by Josh Archer and edited in class with guidance from Tina Ostrander)
 class BlogsDB
 {
