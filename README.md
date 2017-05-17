@@ -6,7 +6,8 @@ CREATE TABLE bloggers (
   fname VARCHAR(50),
   lname VARCHAR(50),
   image_path VARCHAR(255),
-  blog_count INT(3)
+  blog_count INT(3),
+  bio TEXT
   );
   
   CREATE TABLE blogposts (
