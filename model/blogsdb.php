@@ -151,12 +151,13 @@ class BlogsDB
     {
         
         //Create the insert statement, setting the premium column to 1 to indicate a premium member
-        $insert = 'INSERT INTO blogposts (blogger_id, blog_post, word_count, post_date)
-        VALUES (:blogger_id, :blog_post, :word_count, now())';
+        $insert = 'INSERT INTO blogposts (blogger_id, title,  blog_post, word_count, post_date)
+        VALUES (:blogger_id, :title, :blog_post, :word_count, now())';
         
         $statement = $this->_pdo->prepare($insert);
         
         $statement->bindValue(':blogger_id', $bloggerId, PDO::PARAM_INT);
+        $statement->bindValue(':title', $blogPost->getPost(), PDO::PARAM_STR);
         $statement->bindValue(':blog_post', $blogPost->getPost(), PDO::PARAM_STR);
         $statement->bindValue(':word_count', $blogPost->getCount(), PDO::PARAM_INT);
 
@@ -179,7 +180,7 @@ class BlogsDB
    function getPostById($id)
    {
         //Create the select statement
-       $select = 'SELECT id, blogger_id, blog_post, word_count, post_date
+       $select = 'SELECT id, blogger_id, title, blog_post, word_count, post_date
                     FROM blogposts WHERE id=:id';
        
        //prepare the statement and bind the id
@@ -255,5 +256,40 @@ class BlogsDB
         $statement->execute();
         
         
+   }
+   
+   /**
+    *Gets the data for the blogger associated with a post
+    *
+    *@param int postId the id of the blog post
+    *
+    *@return an associative array containing the blogger's data
+    */
+   function getBloggerByPost($postId)
+   {
+        //Create the select statement
+        $select = 'SELECT blogger_id
+                    FROM blogposts WHERE id=:id';
+       
+       //prepare the statement and bind the id
+       $statement = $this->_pdo->prepare($select);
+       $statement->bindValue(':id', $postId, PDO::PARAM_INT);
+       $statement->execute();
+       
+       $post = $statement->fetch(PDO::FETCH_ASSOC);
+       
+       $bloggerId = $post['blogger_id'];
+    
+        //Create the select statement
+        $select = 'SELECT id, fname, lname, image_path, blog_count, bio, last_post
+                    FROM bloggers WHERE id=:id';
+       
+       //prepare the statement and bind the id
+       $statement = $this->_pdo->prepare($select);
+       $statement->bindValue(':id', $bloggerId, PDO::PARAM_INT);
+       $statement->execute();
+       
+       //return the array holding the info pulled from the database 
+       return $statement->fetch(PDO::FETCH_ASSOC);
    }
 }

@@ -59,9 +59,11 @@
 	 *Route to a specific blog post
 	 */
 	$f3->route('GET /blog/@id', function($f3, $params) {
-		$f3->set('blog', $GLOBALS['blogsDB']->getPostById($params['id']));
 		
-		echo Template::instance()->render('pages/profile.html');
+		$f3->set('blog', $GLOBALS['blogsDB']->getPostById($params['id']));
+		$f3->set('blogger', $GLOBALS['blogsDB']->getBloggerByPost($params['id']));
+		
+		echo Template::instance()->render('pages/blog.html');
 	});
     
     //Run fat free
