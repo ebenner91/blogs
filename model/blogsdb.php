@@ -127,7 +127,7 @@ class BlogsDB
     */
    function login($username, $password)
    {
-        $select = 'SELECT username, password, id
+        $select = 'SELECT username, password
                     FROM bloggers WHERE username=:username';
                     
         //prepare the statement and bind the id
@@ -139,14 +139,7 @@ class BlogsDB
        
        $hashed_password = sha1($password);
        
-       if($hashed_password === $result['password'])
-       {
-        return true;
-       }
-       else
-       {
-        return false;
-       }
+       return strcmp($hashed_password, $result['password']);
    }
    
    /**

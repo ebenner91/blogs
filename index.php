@@ -41,7 +41,14 @@
 	$f3->route('GET|POST /', function($f3) {
 		if(isset($_POST['submit']))
 		{
-			$loginSuccess = $GLOBALS['blogsDB']->login($_POST['username'], $_POST['password']);
+			if($GLOBALS['blogsDB']->login($_POST['username'], $_POST['password']) === true)
+			{
+				echo "login success";
+			}
+			else
+			{
+				echo "login failed";
+			}
 			
 			if($loginSuccess)
 			{
