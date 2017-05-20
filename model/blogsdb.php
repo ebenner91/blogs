@@ -56,8 +56,8 @@ class BlogsDB
     {
         
         //Create the insert statement, setting the premium column to 1 to indicate a premium member
-        $insert = 'INSERT INTO bloggers (fname, lname, image_path, blog_count, bio)
-        VALUES (:fname, :lname, :image_path, :blog_count, :bio)';
+        $insert = 'INSERT INTO bloggers (fname, lname, image_path, blog_count, bio, username, password)
+        VALUES (:fname, :lname, :image_path, :blog_count, :bio, :username, :password)';
         
         $statement = $this->_pdo->prepare($insert);
         
@@ -66,6 +66,8 @@ class BlogsDB
         $statement->bindValue(':image_path', $blogger->getPath(), PDO::PARAM_STR);
         $statement->bindValue(':blog_count', 0, PDO::PARAM_INT); //blog count starts at zero, new bloggers have no posts
         $statement->bindValue(':bio', $blogger->getBio(), PDO::PARAM_STR);
+        $statement->bindValue(':username', $blogger->getUsername(), PDO::PARAM_STR);
+        $statement->bindValue(':password', $blogger->getPass(), PDO::PARAM_STR);
         
         $statement->execute();
         
@@ -85,7 +87,7 @@ class BlogsDB
         SET blog_count = blogCount + 1
         WHERE id-:id';
         
-        $statement = $this->_pdo->prepare($insert);
+        $statement = $this->_pdo->prepare($update);
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         
         $statement->execute();
@@ -212,5 +214,46 @@ class BlogsDB
        //return the array holding the info pulled from the database 
        return $statement->fetch(PDO::FETCH_ASSOC);
    }
-    
+   
+   /**
+    * Update's a blogger's "latest post" excerpt
+    *
+    * @access public
+    * @param int postId takes the id number of the post to be excerpted
+    */
+   function updateLatestPost($postId)
+   {
+        //get the latest post from the blogs database
+        $select = 'SELECT blogger_id, blog_post
+                    FROM blogposts WHERE id=:id';
+        
+        //prepare the statement and bind the id
+       $statement = $this->_pdo->prepare($select);
+       $statement->bindValue(':id', $id, PDO::PARAM_INT);
+       $statement->execute();
+       
+       //retrieve the data
+       $postData = $statement->fetch(PDO::FETCH_ASSOC);
+       
+       //retrieve the post text
+       $text = $postData['blog_post'];
+       
+       //cut post text to a snippet
+       $text = substr($text, 0, 140)."...";
+       
+       //get blogger's id
+       $bloggerId = $postData['blogger_id'];
+       
+       $update = 'UPDATE bloggers
+        SET last_post = :last_post
+        WHERE id-:id';
+        
+        $statement = $this->_pdo->prepare($update);
+        $statement->bindValue(':last_post', $text, PDO::PARAM_STR);
+        $statement->bindValue(':id', $bloggerId, PDO::PARAM_INT);
+        
+        $statement->execute();
+        
+        
+   }
 }

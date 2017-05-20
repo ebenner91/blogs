@@ -7,7 +7,10 @@ CREATE TABLE bloggers (
   lname VARCHAR(50),
   image_path VARCHAR(255),
   blog_count INT(3),
-  bio TEXT
+  bio TEXT,
+  username VARCHAR(255),
+  password VARCHAR(255),
+  last_post TEXT
   );
   
   CREATE TABLE blogposts (

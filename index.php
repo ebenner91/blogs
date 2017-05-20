@@ -38,9 +38,10 @@
 	/**
 	 *Default route for the website
 	 */
-	$f3->route('GET /', function() {
-		$view = new View;
-		echo $view->render('pages/home.html');
+	$f3->route('GET /', function($f3) {
+		$f3->set('bloggers', $GLOBALS['blogsDB']->allBloggers());
+		
+		echo Template::instance()->render('pages/home.html');
 	});
     
     //Run fat free

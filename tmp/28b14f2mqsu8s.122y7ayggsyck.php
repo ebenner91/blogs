@@ -57,16 +57,16 @@
       
       <div class="container">
         <div class="row">
-          <repeat group="{{ @bloggers }}" value="{{ @blogger }}">
+          <?php foreach (($bloggers?:[]) as $blogger): ?>
             <div class="cards col-sm-4">
-                <img src="{{ @blogger['image_path'] }}" alt="Profile Picture" class="col-xs-12 img-responsive center-block">
-                <p class='text-center'>{{ @blogger['fname'] }} {{ @blogger['lname'] }}</p>
+                <img src="<?= $blogger['image_path'] ?>" alt="Profile Picture" class="col-xs-12 img-responsive center-block">
+                <p class='text-center'><?= $blogger['fname'] ?> <?= $blogger['lname'] ?></p>
                 <hr>
-                view blogs<span class='pull-right'>Total: {{ @blogger['blog_count' ] }}</span>
+                view blogs<span class='pull-right'>Total: <?= $blogger['blog_count' ] ?></span>
                 <hr>
-                <p class='text-center'>{{ @blogger['last_post'] }}</p>
+                <p class='text-center'><?= $blogger['bio'] ?></p>
             </div>
-          </repeat>
+          <?php endforeach; ?>
             <div class="col-sm-6 text-center">
                 Testing
             </div>
