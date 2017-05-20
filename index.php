@@ -65,6 +65,14 @@
 		
 		echo Template::instance()->render('pages/blog.html');
 	});
+	
+	/**
+	 *Route to the about us page
+	 */
+	$f3->route('GET /about', function($f3) {
+		
+		echo Template::instance()->render('pages/about-us.html');
+	});
     
     //Run fat free
 	$f3->run();

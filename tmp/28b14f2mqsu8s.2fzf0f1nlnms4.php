@@ -46,7 +46,7 @@
                         <ul class="nav navbar-nav">
                             <li><a href="/328/blogs">Home ></a></li>
                             <li><a href="#">Become a Blogger ></a></li>
-                            <li><a href="#">About Us ></a></li>
+                            <li><a href="/328/blogs/about">About Us ></a></li>
                             <li><a href="#">Login ></a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->

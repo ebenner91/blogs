@@ -8,3 +8,9 @@ hr
     margin: 0px;
     border-color: black;
 }
+
+#circle
+{
+    height: 130px;
+    width: 155px;
+}
