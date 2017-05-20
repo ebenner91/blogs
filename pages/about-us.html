@@ -5,7 +5,7 @@
     <div class="col-sm-6"><h1 class="col-xs-12">WordSpace</h1>
     <span class="lead col-xs-12">Your one-stop shop for internet blogs</span>
     </div>
-    <div class="col-sm-6"><img id="circle" class="col-xs-12" alt="Blog Logo" src="/328/blogs/images/blog-circle.png"></div>
+    <div class="col-sm-6"><img class=" side-image col-xs-12" alt="Blog Logo" src="/328/blogs/images/blog-circle.png"></div>
     </div>
 </div>
 <div class="col-xs-10">

@@ -13,8 +13,6 @@
 <!-- CSS for sidebar nav adapted from http://www.samrayner.com/bootstrap-side-navbar/ -->
 <link type="text/css" href="/328/blogs/styles/navbar-fixed-side.css" rel="stylesheet" />
 
-<!-- Bootstrap - Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 <link type="text/css" rel="stylesheet" href="/328/blogs/styles/styles.css">
 <!--[if lt IE 9]>
@@ -45,9 +43,17 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="/328/blogs">Home ></a></li>
-                            <li><a href="#">Become a Blogger ></a></li>
+                            <?php if ($loggedin): ?>
+                                
+                                    <li><a href="/328/blogs">My Blogs ></a></li>
+                                    <li><a href="/328/blogs">Create Blog ></a></li>
+                                
+                                <?php else: ?>
+                                   <li><a href="#">Become a Blogger ></a></li> 
+                                
+                            <?php endif; ?>
                             <li><a href="/328/blogs/about">About Us ></a></li>
-                            <li><a href="#">Login ></a></li>
+                            <li><a href="/328/blogs/login">Login ></a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->

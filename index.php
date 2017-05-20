@@ -38,7 +38,18 @@
 	/**
 	 *Default route for the website
 	 */
-	$f3->route('GET /', function($f3) {
+	$f3->route('GET|POST /', function($f3) {
+		if(isset($_POST['submit']))
+		{
+			$loginSuccess = $GLOBALS['blogsDB']->login($_POST['username'], $_POST['password']);
+			
+			if($loginSuccess)
+			{
+				$_SESSION['username'] = $_POST['username'];
+			}
+
+		}
+		$f3->set("loggedin", isset($_SESSION['username']));
 		$f3->set('bloggers', $GLOBALS['blogsDB']->allBloggers());
 		
 		echo Template::instance()->render('pages/home.html');
@@ -72,6 +83,14 @@
 	$f3->route('GET /about', function($f3) {
 		
 		echo Template::instance()->render('pages/about-us.html');
+	});
+	
+	/**
+	 *Route to the login us page
+	 */
+	$f3->route('GET /login', function($f3) {
+		
+		echo Template::instance()->render('pages/login-page.html');
 	});
     
     //Run fat free

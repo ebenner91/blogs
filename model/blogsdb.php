@@ -118,6 +118,38 @@ class BlogsDB
    }
    
    /**
+    *Checks user credentials
+    *
+    *@param String username the username entered
+    *@param String password the password entered
+    *
+    *@return boolean indiating whether the credentials matched
+    */
+   function login($username, $password)
+   {
+        $select = 'SELECT username, password, id
+                    FROM bloggers WHERE username=:username';
+                    
+        //prepare the statement and bind the id
+       $statement = $this->_pdo->prepare($select);
+       $statement->bindValue(':username', $username, PDO::PARAM_INT);
+       $statement->execute();
+       
+       $result = $statement->fetch(PDO::FETCH_ASSOC);
+       
+       $hashed_password = sha1($password);
+       
+       if($hashed_password === $result['password'])
+       {
+        return true;
+       }
+       else
+       {
+        return false;
+       }
+   }
+   
+   /**
     * Returns all bloggers in the database collection.
     *
     * @access public

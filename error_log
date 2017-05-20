@@ -362,3 +362,7 @@
 [20-May-2017 04:49:21 America/Chicago] HTTP 404 (GET /images/blog-circle.png)
 [20-May-2017 04:49:21 America/Chicago] [328/blogs/vendor/bcosca/fatfree-core/base.php:1645] Base->error()
 [20-May-2017 04:49:21 America/Chicago] [328/blogs/index.php:78] Base->run()
+[20-May-2017 05:31:10 America/Chicago] HTTP 404 (GET /login)
+[20-May-2017 05:31:10 America/Chicago] [328/blogs/vendor/bcosca/fatfree-core/base.php:1645] Base->error()
+[20-May-2017 05:31:10 America/Chicago] [328/blogs/index.php:78] Base->run()
+[20-May-2017 06:09:24 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home/ebenner/public_html/328/blogs/index.php on line 45
