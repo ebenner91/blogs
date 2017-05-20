@@ -16,6 +16,7 @@ CREATE TABLE bloggers (
   CREATE TABLE blogposts (
   id INT(3) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   blogger_id INT(3),
+  title TEXT,
   blog_post TEXT,
   word_count INT(4),
   post_date TIMESTAMP

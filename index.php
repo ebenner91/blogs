@@ -43,6 +43,26 @@
 		
 		echo Template::instance()->render('pages/home.html');
 	});
+	
+	/**
+	 *Route to a user's blog profile
+	 */
+	$f3->route('GET /profile/@id', function($f3, $params) {
+		$f3->set('blogger', $GLOBALS['blogsDB']->getBloggerById($params['id']));
+		
+		$f3->set('blogs', $GLOBALS['blogsDB']->getAllPostsByBlogger($params['id']));
+		
+		echo Template::instance()->render('pages/profile.html');
+	});
+	
+	/**
+	 *Route to a specific blog post
+	 */
+	$f3->route('GET /blog/@id', function($f3, $params) {
+		$f3->set('blog', $GLOBALS['blogsDB']->getPostById($params['id']));
+		
+		echo Template::instance()->render('pages/profile.html');
+	});
     
     //Run fat free
 	$f3->run();

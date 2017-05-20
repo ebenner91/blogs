@@ -105,7 +105,7 @@ class BlogsDB
    function getBloggerById($id)
    {
         //Create the select statement
-       $select = 'SELECT id, fname, lname, image_path, blog_count, bio
+       $select = 'SELECT id, fname, lname, image_path, blog_count, bio, last_post
                     FROM bloggers WHERE id=:id';
        
        //prepare the statement and bind the id
@@ -126,7 +126,7 @@ class BlogsDB
     */
    function allBloggers()
    {
-       $select = 'SELECT id, fname, lname, image_path, blog_count, bio
+       $select = 'SELECT id, fname, lname, image_path, blog_count, bio, last_post
                     FROM bloggers ORDER BY lname';
        $statement = $this->_pdo->prepare($select);
         
@@ -203,16 +203,16 @@ class BlogsDB
    function getAllPostsByBlogger($bloggerId)
    {
         //Create the select statement
-       $select = 'SELECT id, blogger_id, blog_post, word_count, post_date
+       $select = 'SELECT id, title, blog_post, word_count, post_date
                     FROM blogposts WHERE blogger_id=:blogger_id  ORDER BY post_date';
        
        //prepare the statement and bind the id
        $statement = $this->_pdo->prepare($select);
-       $statement->bindValue(':id', $id, PDO::PARAM_INT);
+       $statement->bindValue(':blogger_id', $bloggerId, PDO::PARAM_INT);
        $statement->execute();
        
        //return the array holding the info pulled from the database 
-       return $statement->fetch(PDO::FETCH_ASSOC);
+       return $statement->fetchAll(PDO::FETCH_ASSOC);
    }
    
    /**
@@ -239,7 +239,7 @@ class BlogsDB
        $text = $postData['blog_post'];
        
        //cut post text to a snippet
-       $text = substr($text, 0, 140)."...";
+       $text = substr($text, 0, 600)."...";
        
        //get blogger's id
        $bloggerId = $postData['blogger_id'];

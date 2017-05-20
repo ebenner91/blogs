@@ -37,14 +37,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="http://ebenner.greenrivertech.net/328/blogs">WordSpace </a>
+      <a class="navbar-brand" href="/328/blogs">WordSpace </a>
       <img class="img-responsive center-block img-rounded" alt="logo" src="/328/blogs/images/blog-logo.jpg">
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Home ></a></li>
+        <li><a href="/328/blogs">Home ></a></li>
         <li><a href="#">Become a Blogger ></a></li>
         <li><a href="#">About Us ></a></li>
         <li><a href="#">Login ></a></li>
@@ -55,21 +55,18 @@
     </div>
     <div class="col-sm-9 col-lg-10">
       
-      <div class="container">
+      <div class="container content">
         <div class="row">
           <?php foreach (($bloggers?:[]) as $blogger): ?>
-            <div class="cards col-sm-4">
+            <div class="col-sm-4">
                 <img src="<?= $blogger['image_path'] ?>" alt="Profile Picture" class="col-xs-12 img-responsive center-block">
                 <p class='text-center'><?= $blogger['fname'] ?> <?= $blogger['lname'] ?></p>
                 <hr>
-                view blogs<span class='pull-right'>Total: <?= $blogger['blog_count' ] ?></span>
+                <a href="/328/blogs/profile/<?= $blogger['id'] ?>">view blogs</a><span class='pull-right'>Total: <?= $blogger['blog_count' ] ?></span>
                 <hr>
-                <p class='text-center'><?= $blogger['bio'] ?></p>
+                <p class='text-center'>Something from my latest blog:<br><?= $blogger['last_post'] ?></p>
             </div>
           <?php endforeach; ?>
-            <div class="col-sm-6 text-center">
-                Testing
-            </div>
         </div>
       </div>
       
