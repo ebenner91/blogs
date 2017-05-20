@@ -1,7 +1,7 @@
 <?php
 /*
 *Elizabeth Benner
-*5/16/17
+*5/21/17
 *blogsdb.php
 *This class provides access to the blog database for the blogs website
 */
