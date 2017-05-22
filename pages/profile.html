@@ -1,25 +1,31 @@
 <include href="includes/page-top.html"/>
             <div class="col-xs-12 text-center content"><h1>{{ @blogger['username'] }}'s Blogs</h1></div> 
             <div class="col-xs-8 content">
-                <p class="lead">My most recent blog:</p>
-                <p>Excerpt: {{ nl2br(@blogger['last_post']) }}</p>
-            </div>
-            <div class='col-xs-4'><img src="{{ @blogger['image_path'] }}" alt="Profile Picture" class="img-responsive center-block"></div>
-            <div class='col-xs-8 content'>
-                <p class='lead'>My Blogs:</p>
-                <hr>
-                <repeat group="{{ @blogs }}" value="{{ @blog }}">
-                    <p><a href="/328/blogs/blog/{{ @blog['id'] }}">{{ @blog['title'] }}</a> -
-                    Word Count: {{ @blog['word_count'] }} -
-                    {{ @blog['post_date'] }}</p>
-                    <p>{{ nl2br(substr(@blog['blog_post'], 0, 400)) }}...</p>
+                <div class="col-xs-12 blog-box">
+                    <p class="lead">My most recent blog:</p>
+                    <p>Excerpt: {{ nl2br(@blogger['last_post']) }}</p>
+                </div>
+                <div class="col-xs-12 blog-box">
+                    <p class='lead'>My Blogs:</p>
                     <hr>
-                </repeat>
+                    <repeat group="{{ @blogs }}" value="{{ @blog }}">
+                        <p><a href="/328/blogs/blog/{{ @blog['id'] }}">{{ @blog['title'] }}</a> -
+                        Word Count: {{ @blog['word_count'] }} -
+                        {{ @blog['post_date'] }}</p>
+                        <p>{{ nl2br(substr(@blog['blog_post'], 0, 400)) }}...</p>
+                        <hr>
+                    </repeat>
+                </div>
             </div>
-            <div class="col-xs-4 content">
-                <p class="lead text-center">{{ @blogger['username'] }}</p>
+            <div class='col-xs-4'>
+                <div class="col-xs-12">
+                    <img src="{{ @blogger['image_path'] }}" alt="Profile Picture" class="img-responsive center-block">
+                </div>
+                <div class="col-xs-12 content blog-box">
+                    <p class="lead text-center">{{ @blogger['username'] }}</p>
                 <hr>
                 <p>Bio: {{ nl2br(@blogger['bio']) }}</p>
-            </div>
+                </div>
+                </div>
 
 <include href="includes/page-bottom.html"/>

@@ -5,7 +5,7 @@
     <div class="col-sm-6"><h1 class="col-xs-12">Become a blogger!</h1>
     <span class="lead col-xs-12">Create a new account below</span>
     </div>
-    <div class="col-sm-6"><img class="pull-right side-image col-xs-12" alt="Blog Logo" src="/328/blogs/images/blog-circle.png"></div>
+    <div class="col-sm-6"><img class="pull-right side-image col-xs-12" alt="Blog Logo" src="/328/blogs/images/writing.png"></div>
     </div>
 </div>
 <div class="blog-box col-xs-10 content">

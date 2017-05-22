@@ -19,7 +19,7 @@
         <tbody>
             <repeat group="{{ @blogs }}" value="{{ @blog }}">
                 <tr>
-                <td>{{ @blog['title'] }}</td>
+                <td><a href="/328/blogs/blog/{{ @blog['id'] }}">{{ @blog['title'] }}</a></td>
                 <td><a href="/328/blogs/update-post/{{ @blog['id'] }}"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
                 <td><a href="/328/blogs/delete-post/{{ @blog['id'] }}"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>
                 </tr>

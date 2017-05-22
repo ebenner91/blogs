@@ -94,6 +94,23 @@ class BlogsDB
     }
     
     /**
+     *Decrements blogger's blog count
+     *
+     *@param int id the id number of the blogger whose count is being decremented
+     */
+    function reduceCount($id)
+    {
+        $update = 'UPDATE bloggers
+        SET blog_count = blog_count - 1
+        WHERE id=:id';
+        
+        $statement = $this->_pdo->prepare($update);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        
+        $statement->execute();
+    }
+    
+    /**
     * Returns a blogger that matches the given id
     *
     * @access public
@@ -248,6 +265,29 @@ class BlogsDB
     }
     
     /**
+     *Updates a post on a user's blog
+     *
+     *@param int id the id of the post to be updated
+     *@param BlogPost blogPost the BlogPost object containing the new blog post data
+     */
+    function updatePost($id, $blogPost)
+    {
+        
+        $update = 'UPDATE blogposts
+        SET title = :title, blog_post = :blog_post, word_count = :word_count,
+        post_date = now()
+        WHERE id = :id';
+        
+        $statement = $this->_pdo->prepare($update);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        $statement->bindValue(':title', $blogPost->getTitle(), PDO::PARAM_STR);
+        $statement->bindValue(':blog_post', $blogPost->getText(), PDO::PARAM_STR);
+        $statement->bindValue(':word_count', $blogPost->getWordCount(), PDO::PARAM_INT);
+        
+        $statement->execute();
+    }
+    
+    /**
     * Returns a blog post that matches the given id
     *
     * @access public
@@ -293,6 +333,25 @@ class BlogsDB
        
        //return the array holding the info pulled from the database 
        return $statement->fetchAll(PDO::FETCH_ASSOC);
+   }
+   
+   /**
+    *Gets the most recent post by timestamp in the database
+    *
+    *@param int id the id of the user whose posts are being pulled from
+    */
+   function getMostRecent($id)
+   {
+        $select = 'SELECT id, post_date
+                    FROM blogposts WHERE blogger_id=:blogger_id ORDER BY post_date DESC';
+       
+       //prepare the statement and bind the id
+       $statement = $this->_pdo->prepare($select);
+       $statement->bindValue(':blogger_id', $id, PDO::PARAM_INT);
+       $statement->execute();
+       
+       //return the array holding the info pulled from the database 
+       return $statement->fetch(PDO::FETCH_ASSOC);
    }
    
    /**

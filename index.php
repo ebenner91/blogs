@@ -51,7 +51,7 @@
 
 		}
 		$f3->set('bloggers', $GLOBALS['blogsDB']->allBloggers());
-
+		$f3->set('page_title', 'Home');
 		
 		echo Template::instance()->render('pages/home.html');
 	});
@@ -60,9 +60,14 @@
 	 *Route to a user's blog profile
 	 */
 	$f3->route('GET /profile/@id', function($f3, $params) {
-		$f3->set('blogger', $GLOBALS['blogsDB']->getBloggerById($params['id']));
+		$blogger = $GLOBALS['blogsDB']->getBloggerById($params['id']);
+		$f3->set('blogger', $blogger);
 		
 		$f3->set('blogs', $GLOBALS['blogsDB']->getAllPostsByBlogger($params['id']));
+		
+		$page_title = $blogger['username']."'s Blogs";
+		
+		$f3->set('page_title', $page_title);
 		
 		echo Template::instance()->render('pages/profile.html');
 	});
@@ -71,10 +76,12 @@
 	 *Route to a specific blog post
 	 */
 	$f3->route('GET /blog/@id', function($f3, $params) {
-		
-		$f3->set('blog', $GLOBALS['blogsDB']->getPostById($params['id']));
+		$blog = $GLOBALS['blogsDB']->getPostById($params['id']);
+		$f3->set('blog', $blog);
 		$f3->set('blogger', $GLOBALS['blogsDB']->getBloggerByPost($params['id']));
 		
+		$page_title = $blog['title'];
+		$f3->set('page_title', $page_title);
 		echo Template::instance()->render('pages/blog.html');
 	});
 	
@@ -83,6 +90,8 @@
 	 */
 	$f3->route('GET /about', function($f3) {
 		
+		$f3->set('page_title', 'About Us');
+		
 		echo Template::instance()->render('pages/about-us.html');
 	});
 	
@@ -90,6 +99,7 @@
 	 *Route to the login page
 	 */
 	$f3->route('GET /login', function($f3) {
+		$f3->set('page_title', 'Login');
 		
 		echo Template::instance()->render('pages/login-page.html');
 	});
@@ -107,6 +117,7 @@
 	 *Form to create a new user
 	 */
 	$f3->route('GET /new-user', function($f3) {
+		$f3->set('page_title', 'Create an Account');
 		
 		echo Template::instance()->render('pages/new-user.html');
 	});
@@ -137,6 +148,7 @@
 	 *Form to create a new blog post
 	 */
 	$f3->route('GET /new-post', function($f3) {
+		$f3->set('page_title', 'New Blog Post');
 		$username = $f3->get("SESSION.username");
 		
 		$f3->set('blogger', $GLOBALS['blogsDB']->getBloggerByUsername($username));
@@ -145,7 +157,7 @@
 	});
 	
 	/**
-	 *Creates the blog post and then redirects to home page (redirect to "my Blogs" once that page is finished)
+	 *Creates the blog post and then redirects to "my blogs" page
 	 */
 	$f3->route('POST /post-submit', function($f3) {
 		$newPost = new BlogPost($_POST['title'], $_POST['text'], $_POST['bloggerId']);
@@ -165,6 +177,8 @@
 	 */
 	$f3->route('GET /my-blogs/@id', function($f3, $params) {
 		
+		$f3->set('page_title', 'Your Blogs');
+		
 		$f3->set('blogger', $GLOBALS['blogsDB']->getBloggerById($params['id']));
 		
 		$f3->set('blogs', $GLOBALS['blogsDB']->getAllPostsByBlogger($params['id']));
@@ -179,8 +193,46 @@
 	$f3->route('GET /delete-post/@id', function($f3, $params) {
 		$GLOBALS['blogsDB']->deletePost($params['id']);
 		
+		
 		$userId = $f3->get("SESSION.userId");
+		
+		$GLOBALS['blogsDB']->reduceCount($userId);
+		
+		$mostRecent = $GLOBALS['blogsDB']->getMostRecent($userId);
+		
+		$GLOBALS['blogsDB']->updateLatestPost($mostRecent['id']);
+		
 		$route = '/my-blogs/'.$userId;
+		$f3->reroute($route);
+	});
+	
+	/**
+	 *Form to update and existing blog post
+	 */
+	$f3->route('GET /update-post/@id', function($f3, $params) {
+		$f3->set('page_title', 'Update Blog Post');
+		
+		$username = $f3->get("SESSION.username");
+		
+		$f3->set('blogger', $GLOBALS['blogsDB']->getBloggerByUsername($username));
+		
+		$f3->set("blog", $GLOBALS['blogsDB']->getPostById($params['id']));
+		
+		echo Template::instance()->render('pages/edit-post.html');
+	});
+	
+	/**
+	 *Updates the blog post and then redirects to "my blogs" page
+	 */
+	$f3->route('POST /update-submit', function($f3) {
+		$updatedPost = new BlogPost($_POST['title'], $_POST['text'], $_POST['bloggerId']);
+		
+		$GLOBALS['blogsDB']->updatePost($_POST['postId'], $updatedPost);
+		
+		$GLOBALS['blogsDB']->updateLatestPost($_POST['postId']);
+		
+		$route = '/my-blogs/'.$_POST['bloggerId'];
+		
 		$f3->reroute($route);
 	});
 	
