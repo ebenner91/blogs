@@ -366,3 +366,20 @@
 [20-May-2017 05:31:10 America/Chicago] [328/blogs/vendor/bcosca/fatfree-core/base.php:1645] Base->error()
 [20-May-2017 05:31:10 America/Chicago] [328/blogs/index.php:78] Base->run()
 [20-May-2017 06:09:24 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home/ebenner/public_html/328/blogs/index.php on line 45
+[22-May-2017 00:51:05 America/Chicago] password_hash() expects at least 2 parameters, 1 given
+[22-May-2017 00:51:05 America/Chicago] [328/blogs/vendor/bcosca/fatfree-core/base.php:2178] Base->error()
+[22-May-2017 00:51:05 America/Chicago] [328/blogs/model/blogsdb.php:165] password_hash()
+[22-May-2017 00:51:05 America/Chicago] [328/blogs/index.php:63] BlogsDB->changePassword()
+[22-May-2017 00:51:05 America/Chicago] [328/blogs/vendor/bcosca/fatfree-core/base.php:1791] call_user_func_array()
+[22-May-2017 00:51:05 America/Chicago] [328/blogs/vendor/bcosca/fatfree-core/base.php:1612] Base->call()
+[22-May-2017 00:51:05 America/Chicago] [328/blogs/index.php:106] Base->run()
+[22-May-2017 01:31:32 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home/ebenner/public_html/328/blogs/index.php on line 108
+[22-May-2017 01:31:49 America/Chicago] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/ebenner/public_html/328/blogs/tmp/28b14f2mqsu8s.2fzf0f1nlnms4.php on line 60
+[22-May-2017 01:31:49 America/Chicago] Fatal error: syntax error, unexpected 'else' (T_ELSE)
+[22-May-2017 01:31:49 America/Chicago] [328/blogs/tmp/28b14f2mqsu8s.2fzf0f1nlnms4.php:60] 
+[22-May-2017 01:34:03 America/Chicago] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/ebenner/public_html/328/blogs/tmp/28b14f2mqsu8s.2fzf0f1nlnms4.php on line 60
+[22-May-2017 01:34:03 America/Chicago] Fatal error: syntax error, unexpected 'else' (T_ELSE)
+[22-May-2017 01:34:03 America/Chicago] [328/blogs/tmp/28b14f2mqsu8s.2fzf0f1nlnms4.php:60] 
+[22-May-2017 01:34:17 America/Chicago] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/ebenner/public_html/328/blogs/tmp/28b14f2mqsu8s.2fzf0f1nlnms4.php on line 60
+[22-May-2017 01:34:17 America/Chicago] Fatal error: syntax error, unexpected 'else' (T_ELSE)
+[22-May-2017 01:34:17 America/Chicago] [328/blogs/tmp/28b14f2mqsu8s.2fzf0f1nlnms4.php:60] 

@@ -43,7 +43,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="/328/blogs">Home ></a></li>
-                            <check if="{{ @loggedin }}">
+                            <check if="{{ @SESSION.loggedin }}">
                                 <true>
                                     <li><a href="/328/blogs">My Blogs ></a></li>
                                     <li><a href="/328/blogs">Create Blog ></a></li>
@@ -53,7 +53,15 @@
                                 </false>
                             </check>
                             <li><a href="/328/blogs/about">About Us ></a></li>
-                            <li><a href="/328/blogs/login">Login ></a></li>
+
+                            <check if="{{ @SESSION.loggedin }}">
+                                <true>
+                                    <li><a href="/328/blogs/logout">Logout ></a></li> 
+                                </true>
+                                <false>
+                                    <li><a href="/328/blogs/login">Login ></a></li> 
+                                </false>
+                            </check>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->

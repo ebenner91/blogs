@@ -137,9 +137,7 @@ class BlogsDB
        
        $result = $statement->fetch(PDO::FETCH_ASSOC);
        
-       $hashed_password = sha1($password);
-       
-       return strcmp($hashed_password, $result['password']);
+       return password_verify($password, $result['password']);
    }
    
    /**
@@ -160,6 +158,22 @@ class BlogsDB
        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         
        return $results;
+   }
+   
+   function changePassword($password, $id)
+   {
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        
+        $update = 'UPDATE bloggers
+        SET password = :password
+        WHERE id = :id';
+        
+        $statement = $this->_pdo->prepare($update);
+        $statement->bindValue(':password', $password, PDO::PARAM_STR);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        
+        $statement->execute();
+        
    }
    
    //End Blogger access methods, begin Blog Post access methods
@@ -272,7 +286,7 @@ class BlogsDB
        
        $update = 'UPDATE bloggers
         SET last_post = :last_post
-        WHERE id-:id';
+        WHERE id = :id';
         
         $statement = $this->_pdo->prepare($update);
         $statement->bindValue(':last_post', $text, PDO::PARAM_STR);

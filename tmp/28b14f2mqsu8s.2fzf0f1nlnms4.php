@@ -43,7 +43,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="/328/blogs">Home ></a></li>
-                            <?php if ($loggedin): ?>
+                            <?php if ($SESSION['loggedin']): ?>
                                 
                                     <li><a href="/328/blogs">My Blogs ></a></li>
                                     <li><a href="/328/blogs">Create Blog ></a></li>
@@ -53,7 +53,15 @@
                                 
                             <?php endif; ?>
                             <li><a href="/328/blogs/about">About Us ></a></li>
-                            <li><a href="/328/blogs/login">Login ></a></li>
+
+                            <?php if ($SESSION['loggedin']): ?>
+                                
+                                    <li><a href="/328/blogs/logout">Logout ></a></li> 
+                                
+                                <?php else: ?>
+                                    <li><a href="/328/blogs/login">Login ></a></li> 
+                                
+                            <?php endif; ?>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->

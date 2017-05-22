@@ -41,23 +41,12 @@
 	$f3->route('GET|POST /', function($f3) {
 		if(isset($_POST['submit']))
 		{
-			if($GLOBALS['blogsDB']->login($_POST['username'], $_POST['password']) === true)
-			{
-				echo "login success";
-			}
-			else
-			{
-				echo "login failed";
-			}
 			
-			if($loginSuccess)
-			{
-				$_SESSION['username'] = $_POST['username'];
-			}
-
+			$f3->set("SESSION.loggedin", isset($_POST['username']));
+			
 		}
-		$f3->set("loggedin", isset($_SESSION['username']));
 		$f3->set('bloggers', $GLOBALS['blogsDB']->allBloggers());
+
 		
 		echo Template::instance()->render('pages/home.html');
 	});
@@ -99,6 +88,16 @@
 		
 		echo Template::instance()->render('pages/login-page.html');
 	});
+	/**
+	 *Logs out user and redirects to home page
+	 */
+	$f3->route('GET /logout', function($f3) {
+		
+		$f3->clear('SESSION');
+		
+		$f3->reroute('/');
+	});
+	
     
     //Run fat free
 	$f3->run();
