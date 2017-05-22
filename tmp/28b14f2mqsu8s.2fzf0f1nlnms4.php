@@ -45,7 +45,7 @@
                             <li><a href="/328/blogs">Home ></a></li>
                             <?php if ($SESSION['loggedin']): ?>
                                 
-                                    <li><a href="/328/blogs">My Blogs ></a></li>
+                                    <li><a href="/328/blogs/my-blogs/<?= $SESSION['userId'] ?>">My Blogs ></a></li>
                                     <li><a href="/328/blogs/new-post">Create Blog ></a></li>
                                 
                                 <?php else: ?>

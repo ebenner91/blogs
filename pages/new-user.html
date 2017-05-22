@@ -8,7 +8,7 @@
     <div class="col-sm-6"><img class="pull-right side-image col-xs-12" alt="Blog Logo" src="/328/blogs/images/blog-circle.png"></div>
     </div>
 </div>
-<div class="blog-form col-xs-10 content">
+<div class="blog-box col-xs-10 content">
     <form method="post" action="./user-submit" enctype="multipart/form-data" name="info">
         <div class="col-xs-6">
             <div class="form-group">

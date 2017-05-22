@@ -45,6 +45,10 @@
 			$f3->set("SESSION.loggedin", isset($_POST['username']));
 			$f3->set("SESSION.username", $_POST['username']);
 			
+			$blogger = $GLOBALS['blogsDB']->getBloggerByUsername($_POST['username']);
+			
+			$f3->set("SESSION.userId", $blogger['id']);
+
 		}
 		$f3->set('bloggers', $GLOBALS['blogsDB']->allBloggers());
 
@@ -122,6 +126,10 @@
 		$f3->set("SESSION.loggedin", true);
 		$f3->set("SESSION.username", $_POST['username']);
 		
+		$blogger = $GLOBALS['blogsDB']->getBloggerByUsername($_POST['username']);
+			
+		$f3->set("SESSION.userId", $blogger['id']);
+		
 		$f3->reroute('/');
 	});
 	
@@ -149,6 +157,19 @@
 		$GLOBALS['blogsDB']->updateCount($_POST['bloggerId']);
 		
 		$f3->reroute('/');
+	});
+	
+	/**
+	 *Route to user's blog summary
+	 */
+	$f3->route('GET /my-blogs/@id', function($f3, $params) {
+		
+		$f3->set('blogger', $GLOBALS['blogsDB']->getBloggerById($params['id']));
+		
+		$f3->set('blogs', $GLOBALS['blogsDB']->getAllPostsByBlogger($params['id']));
+		
+		
+		echo Template::instance()->render('pages/my-blogs.html');
 	});
     
     //Run fat free
