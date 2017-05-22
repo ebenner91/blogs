@@ -39,8 +39,7 @@
 	 *Default route for the website
 	 */
 	$f3->route('GET|POST /', function($f3) {
-		if(isset($_POST['submit']))
-		{
+		if(isset($_POST['submit'])) {
 			
 			$f3->set("SESSION.loggedin", isset($_POST['username']));
 			$f3->set("SESSION.username", $_POST['username']);

@@ -37,8 +37,7 @@ class BlogsDB
             
             //Throw an exception whenever a database error occurs
             $this->_pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             die( "Error!: " . $e->getMessage());
         }
     }
@@ -148,13 +147,13 @@ class BlogsDB
                     FROM bloggers WHERE username=:username';
                     
         //prepare the statement and bind the id
-       $statement = $this->_pdo->prepare($select);
-       $statement->bindValue(':username', $username, PDO::PARAM_INT);
-       $statement->execute();
-       
-       $result = $statement->fetch(PDO::FETCH_ASSOC);
-       
-       return password_verify($password, $result['password']);
+        $statement = $this->_pdo->prepare($select);
+        $statement->bindValue(':username', $username, PDO::PARAM_INT);
+        $statement->execute();
+        
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        return password_verify($password, $result['password']);
    }
    
    /**
@@ -324,7 +323,7 @@ class BlogsDB
    {
         //Create the select statement
        $select = 'SELECT id, title, blog_post, word_count, post_date
-                    FROM blogposts WHERE blogger_id=:blogger_id  ORDER BY post_date';
+                    FROM blogposts WHERE blogger_id=:blogger_id  ORDER BY post_date DESC';
        
        //prepare the statement and bind the id
        $statement = $this->_pdo->prepare($select);
@@ -345,13 +344,13 @@ class BlogsDB
         $select = 'SELECT id, post_date
                     FROM blogposts WHERE blogger_id=:blogger_id ORDER BY post_date DESC';
        
-       //prepare the statement and bind the id
-       $statement = $this->_pdo->prepare($select);
-       $statement->bindValue(':blogger_id', $id, PDO::PARAM_INT);
-       $statement->execute();
-       
-       //return the array holding the info pulled from the database 
-       return $statement->fetch(PDO::FETCH_ASSOC);
+        //prepare the statement and bind the id
+        $statement = $this->_pdo->prepare($select);
+        $statement->bindValue(':blogger_id', $id, PDO::PARAM_INT);
+        $statement->execute();
+        
+        //return the array holding the info pulled from the database 
+        return $statement->fetch(PDO::FETCH_ASSOC);
    }
    
    /**
@@ -367,31 +366,31 @@ class BlogsDB
                     FROM blogposts WHERE id=:id';
         
         //prepare the statement and bind the id
-       $statement = $this->_pdo->prepare($select);
-       $statement->bindValue(':id', $postId, PDO::PARAM_INT);
-       $statement->execute();
-       
-       //retrieve the data
-       $postData = $statement->fetch(PDO::FETCH_ASSOC);
-       
-       //retrieve the post text
-       $text = $postData['blog_post'];
-       
-       //cut post text to a snippet
-       $text = substr($text, 0, 300)."...";
-       
-       //get blogger's id
-       $bloggerId = $postData['blogger_id'];
-       
-       $update = 'UPDATE bloggers
-        SET last_post = :last_post
-        WHERE id = :id';
-        
-        $statement = $this->_pdo->prepare($update);
-        $statement->bindValue(':last_post', $text, PDO::PARAM_STR);
-        $statement->bindValue(':id', $bloggerId, PDO::PARAM_INT);
-        
+        $statement = $this->_pdo->prepare($select);
+        $statement->bindValue(':id', $postId, PDO::PARAM_INT);
         $statement->execute();
+        
+        //retrieve the data
+        $postData = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        //retrieve the post text
+        $text = $postData['blog_post'];
+        
+        //cut post text to a snippet
+        $text = substr($text, 0, 300)."...";
+        
+        //get blogger's id
+        $bloggerId = $postData['blogger_id'];
+        
+        $update = 'UPDATE bloggers
+         SET last_post = :last_post
+         WHERE id = :id';
+         
+         $statement = $this->_pdo->prepare($update);
+         $statement->bindValue(':last_post', $text, PDO::PARAM_STR);
+         $statement->bindValue(':id', $bloggerId, PDO::PARAM_INT);
+         
+         $statement->execute();
         
         
    }
@@ -409,25 +408,25 @@ class BlogsDB
         $select = 'SELECT blogger_id
                     FROM blogposts WHERE id=:id';
        
-       //prepare the statement and bind the id
-       $statement = $this->_pdo->prepare($select);
-       $statement->bindValue(':id', $postId, PDO::PARAM_INT);
-       $statement->execute();
-       
-       $post = $statement->fetch(PDO::FETCH_ASSOC);
-       
-       $bloggerId = $post['blogger_id'];
-    
-        //Create the select statement
-        $select = 'SELECT id, username, image_path, blog_count, bio, last_post
-                    FROM bloggers WHERE id=:id';
-       
-       //prepare the statement and bind the id
-       $statement = $this->_pdo->prepare($select);
-       $statement->bindValue(':id', $bloggerId, PDO::PARAM_INT);
-       $statement->execute();
-       
-       //return the array holding the info pulled from the database 
-       return $statement->fetch(PDO::FETCH_ASSOC);
+        //prepare the statement and bind the id
+        $statement = $this->_pdo->prepare($select);
+        $statement->bindValue(':id', $postId, PDO::PARAM_INT);
+        $statement->execute();
+        
+        $post = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        $bloggerId = $post['blogger_id'];
+     
+         //Create the select statement
+         $select = 'SELECT id, username, image_path, blog_count, bio, last_post
+                     FROM bloggers WHERE id=:id';
+        
+        //prepare the statement and bind the id
+        $statement = $this->_pdo->prepare($select);
+        $statement->bindValue(':id', $bloggerId, PDO::PARAM_INT);
+        $statement->execute();
+        
+        //return the array holding the info pulled from the database 
+        return $statement->fetch(PDO::FETCH_ASSOC);
    }
 }
