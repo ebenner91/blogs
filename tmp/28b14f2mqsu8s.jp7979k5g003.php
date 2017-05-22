@@ -32,6 +32,7 @@
                    <input class="form-control" type="password" name="password-verify" id="password-verify">
                     <span class="input-group-addon">Verify Password</span> 
                 </div>
+                <span id="verify-status"></span>
             </div>
         </div>
         <div class="col-xs-6">
