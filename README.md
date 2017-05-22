@@ -3,8 +3,6 @@ IT 328 Blogs Assignment
 
 CREATE TABLE bloggers (
   id INT(3) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  fname VARCHAR(50),
-  lname VARCHAR(50),
   image_path VARCHAR(255),
   blog_count INT(3),
   bio TEXT,

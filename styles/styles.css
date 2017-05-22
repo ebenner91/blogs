@@ -1,3 +1,8 @@
+.btn-gray
+{
+    background-color: #E9E9EA;
+}
+
 .content
 {
     background-color: #E9E9EA;
@@ -9,8 +14,59 @@ hr
     border-color: black;
 }
 
+.home-cards
+{
+    min-height: 400px;
+    max-height: 400px;
+    overflow: scroll;
+    margin: 20px;
+}
+
 .side-image
 {
     height: 130px;
     width: 155px;
+}
+
+/*
+ *file button styling adapted from: https://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3
+ */
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#user-form
+{
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* textarea styling adapted from: http://plnkr.co/edit/dMa4UPLMqOXdVITzFKNr?p=preview
+ */
+.textarea-addon{
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 4px !important;
+  border:1px solid #ccc !important;
+  border-bottom: none !important;
+}
+textarea{
+  border-top-left-radius:0px !important;
+  border-top-right-radius:0px !important;
 }

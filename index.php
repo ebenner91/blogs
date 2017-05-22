@@ -98,6 +98,31 @@
 		$f3->reroute('/');
 	});
 	
+	/**
+	 *Logs out user and redirects to home page
+	 */
+	$f3->route('GET /new-user', function($f3) {
+		
+		echo Template::instance()->render('pages/new-user.html');
+	});
+	
+	/**
+	 *Creates a user, logs them in, and redirects to home page
+	 */
+	$f3->route('POST /user-submit', function($f3) {
+		move_uploaded_file($_FILES["image"]["tmp_name"], "images/" . basename($_FILES["image"]["name"]));
+		$filename = basename($_FILES["image"]["name"]);
+		$url = "/328/blogs/images/$filename";
+		
+		$newBlogger = new Blogger($url, $_POST['bio'], $_POST['username'], $_POST['password'], $_POST['email']);
+		
+		$GLOBALS['blogsDB']->addBlogger($newBlogger);
+		
+		$f3->set("SESSION.loggedin", true);
+		
+		$f3->reroute('/');
+	});
+	
     
     //Run fat free
 	$f3->run();

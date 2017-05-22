@@ -1,14 +1,14 @@
 <?php echo $this->render('includes/page-top.html',NULL,get_defined_vars(),0); ?>
 
-<div class="col-xs-10">
+<div class="col-xs-10 content">
     <div class="row">
     <div class="col-sm-6"><h1 class="col-xs-12">WordSpace</h1>
     <span class="lead col-xs-12">Your one-stop shop for internet blogs</span>
     </div>
-    <div class="col-sm-6"><img class=" side-image col-xs-12" alt="Blog Logo" src="/328/blogs/images/blog-circle.png"></div>
+    <div class="col-sm-6"><img class="pull-right side-image col-xs-12" alt="Blog Logo" src="/328/blogs/images/blog-circle.png"></div>
     </div>
 </div>
-<div class="col-xs-10">
+<div class="col-xs-10 content">
     <span class="lead"><strong>The internet is abuzz with our blog content</strong></span>
     <hr>
     <div class="row"><p class="col-xs-12">Cupcake ipsum dolor sit amet croissant marshmallow jelly-o. Sweet jelly sweet dragée cake.
@@ -28,6 +28,5 @@
         Powder halvah cotton candy candy canes." - blog contributor Terry Stone
     </p>
     </div>
-    
 </div>
 <?php echo $this->render('includes/page-bottom.html',NULL,get_defined_vars(),0); ?>

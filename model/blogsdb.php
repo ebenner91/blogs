@@ -56,18 +56,18 @@ class BlogsDB
     {
         
         //Create the insert statement, setting the premium column to 1 to indicate a premium member
-        $insert = 'INSERT INTO bloggers (fname, lname, image_path, blog_count, bio, username, password)
-        VALUES (:fname, :lname, :image_path, :blog_count, :bio, :username, :password)';
+        $insert = 'INSERT INTO bloggers (image_path, blog_count, bio, username, password, last_post, email)
+        VALUES (:image_path, :blog_count, :bio, :username, :password, :last_post, :email)';
         
         $statement = $this->_pdo->prepare($insert);
-        
-        $statement->bindValue(':fname', $blogger->getFName(), PDO::PARAM_STR);
-        $statement->bindValue(':lname', $blogger->getLName(), PDO::PARAM_STR);
+
         $statement->bindValue(':image_path', $blogger->getPath(), PDO::PARAM_STR);
         $statement->bindValue(':blog_count', 0, PDO::PARAM_INT); //blog count starts at zero, new bloggers have no posts
         $statement->bindValue(':bio', $blogger->getBio(), PDO::PARAM_STR);
         $statement->bindValue(':username', $blogger->getUsername(), PDO::PARAM_STR);
         $statement->bindValue(':password', $blogger->getPass(), PDO::PARAM_STR);
+        $statement->bindValue(':last_post', $blogger->getLatestPost(), PDO::PARAM_STR);
+        $statement->bindValue(':email', $blogger->getEmail(), PDO::PARAM_STR);
         
         $statement->execute();
         
@@ -105,7 +105,7 @@ class BlogsDB
    function getBloggerById($id)
    {
         //Create the select statement
-       $select = 'SELECT id, fname, lname, image_path, blog_count, bio, last_post
+       $select = 'SELECT id, image_path, blog_count, bio, last_post
                     FROM bloggers WHERE id=:id';
        
        //prepare the statement and bind the id
@@ -149,8 +149,8 @@ class BlogsDB
     */
    function allBloggers()
    {
-       $select = 'SELECT id, fname, lname, image_path, blog_count, bio, last_post
-                    FROM bloggers ORDER BY lname';
+       $select = 'SELECT id, username, image_path, blog_count, bio, last_post
+                    FROM bloggers ORDER BY username';
        $statement = $this->_pdo->prepare($select);
         
        $statement->execute();
@@ -160,6 +160,12 @@ class BlogsDB
        return $results;
    }
    
+   /**
+    *Updates a user's password
+    *
+    *@param String password the new password to be entered
+    *@param int id the id of the user to be updates
+    */
    function changePassword($password, $id)
    {
         $password = password_hash($password, PASSWORD_DEFAULT);
@@ -279,7 +285,7 @@ class BlogsDB
        $text = $postData['blog_post'];
        
        //cut post text to a snippet
-       $text = substr($text, 0, 600)."...";
+       $text = substr($text, 0, 300)."...";
        
        //get blogger's id
        $bloggerId = $postData['blogger_id'];
@@ -320,7 +326,7 @@ class BlogsDB
        $bloggerId = $post['blogger_id'];
     
         //Create the select statement
-        $select = 'SELECT id, fname, lname, image_path, blog_count, bio, last_post
+        $select = 'SELECT id, username, image_path, blog_count, bio, last_post
                     FROM bloggers WHERE id=:id';
        
        //prepare the statement and bind the id

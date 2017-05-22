@@ -15,54 +15,34 @@
      * @copyright 2017
      *
      */
-    class BlogPost
+    class Blogger
     {
-        protected $fname;
-        protected $lname;
         protected $imagePath;
         protected $bio;
         protected $username;
         protected $password;
+        protected $latestPost;
+        protected $email;
         
         /**
          *Contructor to create the blogger profile and save the details
          *
-         *@param String $fname the user's first name
-         *@param String $lname the user's last name
          *@param String image_path the file path to the user's profile image
          *@param String bio the user's bio
          *@param String username the user's login username
          *@param String password tee user's password
          */
-        function __construct($fname, $lname, $imagePath, $bio, $username, $password)
+        function __construct($imagePath, $bio, $username, $password, $email)
         {
-            $this->fname = $fname;
-            $this->lname = $lname;
             $this->imagePath = $imagePath;
             $this->bio = $bio;
             $this->username = $username;
-            $this->password = sha1($password);
+            $this->password = password_hash($password, PASSWORD_DEFAULT);
+            $this->latestPost = "This user has not created a post yet...";
+            $this->email = $email;
         }
         
         //Setters
-        
-        /**
-         *Setter for the fname value
-         *@param String $fname the user's first name
-         */
-        function setFName($fname)
-        {
-            $this->fname = $fname;
-        }
-        
-        /**
-         *Setter for the lname value
-         *@param String $lname the user's last name
-         */
-        function setLName($lname)
-        {
-            $this->lname = $lname;
-        }
         
         /**
          *Setter for the imagePath value
@@ -97,48 +77,37 @@
          */
         function setPassword($password)
         {
-            $this->password = sha1($password);
+            $this->password = password_hash($password, PASSWORD_DEFAULT);
         }
         
+        /**
+         *Setter for the latest post
+         *@param String $latestPost the user's latest post
+         */
+        function setPass($latestPost)
+        {
+            $this->password = $latestPost;
+        }
         
+         /**
+         *Setter for the email address
+         *@param String $email the user's email address
+         */
+        function setEmail($email)
+        {
+            $this->email = $email;
+        }
         
         
         //end of setters
         
         //Getters
-        /**
-         *Getter for the fname value
-         *@return String the user's first name
-         */
-        function getFName()
-        {
-            return $this->fname;
-        }
-        
-        //Getters
-        /**
-         *Getter for the lname value
-         *@return String the user's last name
-         */
-        function getlName()
-        {
-            return $this->lname;
-        }
         
        /**
          *Getter for the imagePath value
          *@return String the file path to the user's profile picture
          */
-        function getImagePath()
-        {
-            return $this->imagePath;
-        }
-        
-        /**
-         *Getter for the imagePath value
-         *@return String the file path to the user's profile picture
-         */
-        function getImagePath()
+        function getPath()
         {
             return $this->imagePath;
         }
@@ -159,6 +128,33 @@
         function getUsername()
         {
             return $this->username;
+        }
+        
+        /**
+         *Getter for the password value
+         *@return String the user's password
+         */
+        function getPass()
+        {
+            return $this->password;
+        }
+        
+        /**
+         *Getter for the latestPost value
+         *@return String the user's latest post
+         */
+        function getLatestPost()
+        {
+            return $this->latestPost;
+        }
+        
+        /**
+         *Getter for the email address
+         *@return String the user's email address
+         */
+        function getEmail()
+        {
+            return $this->email;
         }
         //End of getters
     }
