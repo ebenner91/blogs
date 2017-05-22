@@ -11,7 +11,7 @@
         <input type="hidden" name="bloggerId" id="bloggerId" value="{{ @blogger['id'] }}">
         <div class="form-group">
             <div class="input-group">
-                <input class="form-control" type="text" name="title" id="title">
+                <input class="form-control" type="text" name="title" id="title" required>
                 <span class="input-group-addon">Title</span>
             </div>
         </div>
@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                   <div class="input-group-addon textarea-addon"> Blog Entry </div>
-                  <textarea name="text" class="form-control" rows="10"></textarea>
+                  <textarea name="text" class="form-control" rows="10" required></textarea>
                 </div>
             </div>
         </div>

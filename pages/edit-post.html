@@ -12,7 +12,7 @@
         <input type="hidden" name="postId" id="postId" value="{{ @blog['id'] }}">
         <div class="form-group">
             <div class="input-group">
-                <input class="form-control" type="text" name="title" id="title" value="{{ @blog['title'] }}">
+                <input class="form-control" type="text" name="title" id="title" value="{{ @blog['title'] }}" required>
                 <span class="input-group-addon">Update Title</span>
             </div>
         </div>
@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                   <div class="input-group-addon textarea-addon">Update Blog Entry </div>
-                  <textarea name="text" class="form-control" rows="10">{{ @blog['blog_post'] }}</textarea>
+                  <textarea name="text" class="form-control" rows="10" required>{{ @blog['blog_post'] }}</textarea>
                 </div>
             </div>
         </div>
