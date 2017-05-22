@@ -13,23 +13,23 @@
         <div class="col-xs-6">
             <div class="form-group">
                 <div class="input-group">
-                <input class="form-control" type="text" name="username" id="username">
+                <input class="form-control" type="text" name="username" id="username" required>
                 <span class="input-group-addon">Username</span>
                 </div>
             
             <div class="input-group">
-                <input class="form-control" type="email" name="email" id="email">
+                <input class="form-control" type="email" name="email" id="email" required>
                 <span class="input-group-addon">Email</span>
             </div>
             </div>
             
             <div class="form-group">
                 <div class="input-group">
-                   <input class="form-control" type="password" name="password" id="password">
+                   <input class="form-control" type="password" name="password" id="password" required>
                     <span class="input-group-addon">Password</span> 
                 </div>
                 <div class="input-group">
-                   <input class="form-control" type="password" name="password-verify" id="password-verify">
+                   <input class="form-control" type="password" name="password-verify" id="password-verify" required>
                     <span class="input-group-addon">Verify Password</span> 
                 </div>
                 <span id="verify-status"></span>
@@ -41,7 +41,7 @@
                     <input type="text" class="form-control" readonly>
                     <label class="input-group-btn">
                     <span class="btn btn-default btn-gray">
-                        Upload a portrait <input type="file" name="image" accept="image/*" style="display: none;" multiple>
+                        Upload a portrait <input type="file" name="image" accept="image/*" style="display: none;" required>
                     </span>
                 </label>
                 
@@ -51,7 +51,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                           <div class="input-group-addon textarea-addon"> Quick Biography </div>
-                          <textarea name="bio" class="form-control" rows="3"></textarea>
+                          <textarea name="bio" class="form-control" rows="3" required></textarea>
                         </div>
                     </div>
                 </div>
