@@ -155,8 +155,9 @@
 		$GLOBALS['blogsDB']->updateLatestPost($postId);
 		
 		$GLOBALS['blogsDB']->updateCount($_POST['bloggerId']);
+		$route = '/my-blogs/'.$_POST['bloggerId'];
 		
-		$f3->reroute('/');
+		$f3->reroute($route);
 	});
 	
 	/**
@@ -171,6 +172,18 @@
 		
 		echo Template::instance()->render('pages/my-blogs.html');
 	});
+	
+	/**
+	 *Route to user's blog summary
+	 */
+	$f3->route('GET /delete-post/@id', function($f3, $params) {
+		$GLOBALS['blogsDB']->deletePost($params['id']);
+		
+		$userId = $f3->get("SESSION.userId");
+		$route = '/my-blogs/'.$userId;
+		$f3->reroute($route);
+	});
+	
     
     //Run fat free
 	$f3->run();

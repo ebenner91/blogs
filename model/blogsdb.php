@@ -231,6 +231,23 @@ class BlogsDB
     }
     
     /**
+     *Deletes a post from a user's blog
+     *
+     *@param int id the id of the blog post to be deleted
+     */
+    function deletePost($id)
+    {
+        $delete = 'DELETE FROM blogposts
+        WHERE id = :id';
+        
+        $statement = $this->_pdo->prepare($delete);
+        
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        
+        $statement->execute();
+    }
+    
+    /**
     * Returns a blog post that matches the given id
     *
     * @access public
