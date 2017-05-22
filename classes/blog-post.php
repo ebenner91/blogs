@@ -20,6 +20,7 @@
         protected $title;
         protected $text;
         protected $wordCount;
+        protected $bloggerId;
         
         /**
          *Contructor to create the blog post and save the details
@@ -27,11 +28,12 @@
          *@param String $title the post title
          *@param String $text the post text
          */
-        function __construct($title, $text)
+        function __construct($title, $text, $bloggerId)
         {
             $this->title = $title;
             $this->text = $text;
             $this->wordCount = str_word_count($text);
+            $this->bloggerId = $bloggerId;
         }
         
         //Setters
@@ -51,8 +53,17 @@
          */
         function setText($text)
         {
-            $this->text = $text;
+            $this->text = nl2br($text);
             $this->wordCount = str_word_count($text);
+        }
+        
+        /**
+         *Setter for the bloggerId value
+         *@param int $bloggerId the id of the blogger who created the post
+         */
+        function setBloggerId($bloggerId)
+        {
+            $this->bloggerId = $bloggerId;
         }
         
         //end of setters
@@ -83,6 +94,15 @@
         function getWordCount()
         {
             return $this->wordCount;
+        }
+        
+        /**
+         *Getter for the bloggerId value
+         *@return the id of the blogger who created the post
+         */
+        function getBloggerId()
+        {
+            return $this->bloggerId;
         }
         //End of getters
     }

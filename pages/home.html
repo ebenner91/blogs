@@ -7,7 +7,7 @@
                 <hr>
                 <a href="/328/blogs/profile/{{ @blogger['id'] }}">view blogs</a><span class='pull-right'>Total: {{ @blogger['blog_count' ] }}</span>
                 <hr>
-                <p class='text-center'>Something from my latest blog:<br>{{ @blogger['last_post'] }}</p>
+                <p class='text-center'>Something from my latest blog:<br>{{ nl2br(@blogger['last_post']) }}</p>
             </div>
           </repeat>
      

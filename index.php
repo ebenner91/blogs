@@ -43,6 +43,7 @@
 		{
 			
 			$f3->set("SESSION.loggedin", isset($_POST['username']));
+			$f3->set("SESSION.username", $_POST['username']);
 			
 		}
 		$f3->set('bloggers', $GLOBALS['blogsDB']->allBloggers());
@@ -82,7 +83,7 @@
 	});
 	
 	/**
-	 *Route to the login us page
+	 *Route to the login page
 	 */
 	$f3->route('GET /login', function($f3) {
 		
@@ -99,7 +100,7 @@
 	});
 	
 	/**
-	 *Logs out user and redirects to home page
+	 *Form to create a new user
 	 */
 	$f3->route('GET /new-user', function($f3) {
 		
@@ -119,10 +120,36 @@
 		$GLOBALS['blogsDB']->addBlogger($newBlogger);
 		
 		$f3->set("SESSION.loggedin", true);
+		$f3->set("SESSION.username", $_POST['username']);
 		
 		$f3->reroute('/');
 	});
 	
+	/**
+	 *Form to create a new blog post
+	 */
+	$f3->route('GET /new-post', function($f3) {
+		$username = $f3->get("SESSION.username");
+		
+		$f3->set('blogger', $GLOBALS['blogsDB']->getBloggerByUsername($username));
+		
+		echo Template::instance()->render('pages/new-post.html');
+	});
+	
+	/**
+	 *Creates the blog post and then redirects to home page (redirect to "my Blogs" once that page is finished)
+	 */
+	$f3->route('POST /post-submit', function($f3) {
+		$newPost = new BlogPost($_POST['title'], $_POST['text'], $_POST['bloggerId']);
+		
+		$postId = $GLOBALS['blogsDB']->addPost($newPost);
+		
+		$GLOBALS['blogsDB']->updateLatestPost($postId);
+		
+		$GLOBALS['blogsDB']->updateCount($_POST['bloggerId']);
+		
+		$f3->reroute('/');
+	});
     
     //Run fat free
 	$f3->run();

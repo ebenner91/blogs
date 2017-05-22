@@ -1,10 +1,10 @@
 <?php echo $this->render('includes/page-top.html',NULL,get_defined_vars(),0); ?>
-<div class="col-xs-10">
+<div class="col-xs-10 content">
     <div class="row">
     <div class="col-sm-6"><h1 class="col-xs-12">Welcome Back!</h1>
     <span class="lead col-xs-12">Please login below</span>
     </div>
-    <div class="col-sm-6"><img class="side-image col-xs-12" alt="Blog Logo" src="/328/blogs/images/lock.png"></div>
+    <div class="col-sm-6"><img class="pull-right side-image col-xs-12" alt="Blog Logo" src="/328/blogs/images/lock.png"></div>
     </div>
 </div>
 <div class="center-block col-xs-10">

@@ -84,8 +84,8 @@ class BlogsDB
     function updateCount($id)
     {
         $update = 'UPDATE bloggers
-        SET blog_count = blogCount + 1
-        WHERE id-:id';
+        SET blog_count = blog_count + 1
+        WHERE id=:id';
         
         $statement = $this->_pdo->prepare($update);
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
@@ -105,7 +105,7 @@ class BlogsDB
    function getBloggerById($id)
    {
         //Create the select statement
-       $select = 'SELECT id, image_path, blog_count, bio, last_post
+       $select = 'SELECT id, username, image_path, blog_count, bio, last_post
                     FROM bloggers WHERE id=:id';
        
        //prepare the statement and bind the id
@@ -182,6 +182,24 @@ class BlogsDB
         
    }
    
+   /**
+    *Retrieves a blogger by their username
+    *
+    *@param String username the username of the blogger to be retrieved
+    */
+   function getBloggerByUsername($username)
+   {
+        $select = 'SELECT id, username
+                    FROM bloggers WHERE username=:username';
+                    
+        //prepare the statement and bind the id
+        $statement = $this->_pdo->prepare($select);
+        $statement->bindValue(':username', $username, PDO::PARAM_INT);
+        $statement->execute();
+        
+        return $statement->fetch(PDO::FETCH_ASSOC);
+   }
+   
    //End Blogger access methods, begin Blog Post access methods
    
    /**
@@ -192,19 +210,18 @@ class BlogsDB
      *
      * @return id number of the entry
      */
-    function addPost($blogPost, $bloggerId)
+    function addPost($blogPost)
     {
         
-        //Create the insert statement, setting the premium column to 1 to indicate a premium member
-        $insert = 'INSERT INTO blogposts (blogger_id, title,  blog_post, word_count, post_date)
+        $insert = 'INSERT INTO blogposts (blogger_id, title, blog_post, word_count, post_date)
         VALUES (:blogger_id, :title, :blog_post, :word_count, now())';
         
         $statement = $this->_pdo->prepare($insert);
         
-        $statement->bindValue(':blogger_id', $bloggerId, PDO::PARAM_INT);
-        $statement->bindValue(':title', $blogPost->getPost(), PDO::PARAM_STR);
-        $statement->bindValue(':blog_post', $blogPost->getPost(), PDO::PARAM_STR);
-        $statement->bindValue(':word_count', $blogPost->getCount(), PDO::PARAM_INT);
+        $statement->bindValue(':blogger_id', $blogPost->getBloggerId(), PDO::PARAM_INT);
+        $statement->bindValue(':title', $blogPost->getTitle(), PDO::PARAM_STR);
+        $statement->bindValue(':blog_post', $blogPost->getText(), PDO::PARAM_STR);
+        $statement->bindValue(':word_count', $blogPost->getWordCount(), PDO::PARAM_INT);
 
         $statement->execute();
         
@@ -275,7 +292,7 @@ class BlogsDB
         
         //prepare the statement and bind the id
        $statement = $this->_pdo->prepare($select);
-       $statement->bindValue(':id', $id, PDO::PARAM_INT);
+       $statement->bindValue(':id', $postId, PDO::PARAM_INT);
        $statement->execute();
        
        //retrieve the data

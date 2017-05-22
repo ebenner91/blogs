@@ -46,7 +46,7 @@
                             <?php if ($SESSION['loggedin']): ?>
                                 
                                     <li><a href="/328/blogs">My Blogs ></a></li>
-                                    <li><a href="/328/blogs">Create Blog ></a></li>
+                                    <li><a href="/328/blogs/new-post">Create Blog ></a></li>
                                 
                                 <?php else: ?>
                                    <li><a href="new-user">Become a Blogger ></a></li> 
